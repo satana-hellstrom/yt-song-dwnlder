@@ -2,16 +2,17 @@
 
 A terminal UI (TUI) music downloader built on [yt-dlp](https://github.com/yt-dlp/yt-dlp).
 
-Search or paste a link, pick your audio container and quality, and download — all from the terminal.
+Type a song name or paste a link in the top field, move down with arrow keys to pick your container and quality, then hit the Search & Download button — all from the terminal.
 
 ## Features
 
-- **Search or paste** — type a plain search query (YouTube search, pick from top 10 results) or paste any supported URL
+- **Inline entry field** — type a song name (YouTube search, pick from top 10 results) or paste any supported URL; arrow keys always work, no modal trapping input
 - **Containers** — MP3, M4A/AAC, Opus, FLAC, WAV, OGG Vorbis, or Best (native stream, no re-encode)
 - **Quality** — best / 320k / 256k / 192k / 128k
 - **Save folder** — read from `~/.config/ytmdlp-tui/config.json`, editable in the UI, remembered between runs
 - **Embed metadata & thumbnail** — toggle on/off
-- **Live progress bar** — abort with `q`
+- **Loading animation** — "Searching..." / "Downloading..." with live progress bar, abort with `q`
+- **Echoes the saved path** — shows exactly which file was downloaded and where
 
 ## Requirements
 
@@ -27,9 +28,12 @@ python3 ytmdlp_tui.py
 
 | Key | Action |
 |-----|--------|
-| ↑ / ↓ (or k / j) | move |
-| Enter | select / edit |
-| q | quit (or abort a download) |
+| (just type) | enter song name / URL in the top field |
+| ← / → | move the text cursor |
+| ↓ / Tab / Enter | next field (from the entry field) |
+| ↑ / ↓ | move between fields |
+| Enter | change the selected setting |
+| q / Esc | quit (or abort a download) |
 
 ## Notes
 
