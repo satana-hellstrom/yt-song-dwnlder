@@ -1,44 +1,48 @@
 # yt-song-dwnlder
 
-A terminal UI (TUI) music downloader built on [yt-dlp](https://github.com/yt-dlp/yt-dlp).
+A terminal UI music downloader written in **pure bash** on top of [yt-dlp](https://github.com/yt-dlp/yt-dlp) — no Python, no dependencies beyond yt-dlp and ffmpeg.
 
-Type a song name or paste a link in the top field, move down with arrow keys to pick your container and quality, then hit the Search & Download button — all from the terminal.
+Type a song name or paste a link in the boxed field at the top, move down with arrow keys to pick your container and quality, then hit the Search & Download button.
 
 ## Features
 
-- **Inline entry field** — type a song name (YouTube search, pick from top 10 results) or paste any supported URL; arrow keys always work, no modal trapping input
+- **Boxed URL / song entry field** — `Song name / URL [ ................ ]`, typed directly on the form; arrows and Tab move between fields, ←/→ move the text cursor
+- **Search results list** — shows up to 10 similar songs with channel and duration; pick with arrow keys, Enter downloads, `q` goes back to the search page to search again
 - **Containers** — MP3, M4A/AAC, Opus, FLAC, WAV, OGG Vorbis, or Best (native stream, no re-encode)
 - **Quality** — best / 320k / 256k / 192k / 128k
-- **Save folder** — read from `~/.config/ytmdlp-tui/config.json`, editable in the UI, remembered between runs
+- **Save folder** — read from `~/.config/yt-song-dwnlder/config.sh`, editable in its own box, remembered between runs
 - **Embed metadata & thumbnail** — toggle on/off
-- **Loading animation** — "Searching..." / "Downloading..." with live progress bar, abort with `q`
-- **Echoes the saved path** — shows exactly which file was downloaded and where
+- **Loading** — animated `Searching...` / `Downloading...` dots with a live progress bar
+- **Echoes the saved path** — after each download it shows exactly which file was saved and where, then returns to the results list so you can grab another song
 
 ## Requirements
 
-- Python 3.10+
-- yt-dlp: `pip install yt-dlp`
-- ffmpeg (needed for audio conversion) — e.g. `sudo apt install ffmpeg` on Debian/Ubuntu
+- bash 4+ (Linux/macOS default)
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp): `pip install yt-dlp`
+- ffmpeg (needed for audio conversion): e.g. `sudo apt install ffmpeg`
 
 ## Usage
 
 ```bash
-python3 ytmdlp_tui.py
+chmod +x yt-song-dwnlder.sh
+./yt-song-dwnlder.sh
 ```
 
 | Key | Action |
 |-----|--------|
-| (just type) | enter song name / URL in the top field |
-| ← / → | move the text cursor |
-| ↓ / Tab / Enter | next field (from the entry field) |
-| ↑ / ↓ | move between fields |
-| Enter | change the selected setting |
-| q / Esc | quit (or abort a download) |
+| (just type) | edit the boxed field (song name / URL / folder) |
+| ← / → | move the text cursor inside a box |
+| ↓ / Tab / Enter | next field (from a boxed field) |
+| ↑ / ↓ | move between fields / results |
+| Enter | change the selected setting · download the selected result |
+| q | back to search page (in results) · quit (on the form) |
+| Esc | quit |
+| Ctrl-C | abort a running download |
 
 ## Notes
 
 - "Best" keeps YouTube's native (Opus) stream — same audio quality as 320k MP3 at a smaller size. FLAC/WAV re-encode losslessly but cannot restore quality that was never uploaded.
-- Windows users: run under WSL (the Windows console has limited `curses` support).
+- Runs in the alternate screen buffer; your shell history stays clean when you quit.
 
 ## License
 
